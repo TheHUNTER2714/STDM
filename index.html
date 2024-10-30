@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden; /* Prevent scrolling due to the GIF */
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1; /* Keep background behind content */
+            opacity: 0.8; /* Make background slightly transparent */
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        p {
+            color: white;
+            max-width: 800px;
+            text-align: center;
+            margin: 20px;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #4a90e2;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 0 10px;
+            font-size: 1.1em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        a:hover {
+            background-color: #357ab8;
+            transform: scale(1.05);
+        }
+
+        /* Basic Information Section Styles */
+        .info-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .info-section h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background">
+        <img src="https://cdn.dribbble.com/users/1138853/screenshots/4834993/06_08_gif.gif" alt="Background GIF" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <h1>Welcome to the Student Database Management System</h1>
+    <p>This system allows you to manage student records efficiently. You can add new students, view existing records, and maintain an organized database. Our platform is user-friendly, ensuring a smooth experience for managing educational data.</p>
+    <p>Sign up or log in to get started!</p>
+
+    <div class="button-container">
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+    </div>
+
+    <!-- Basic Information Section -->
+    <div class="info-section">
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Add New Students:</strong> Easily input new student data into the system.</li>
+            <li><strong>View Student Records:</strong> Access detailed records of all enrolled students.</li>
+            <li><strong>User-Friendly Interface:</strong> Navigate through the system with ease.</li>
+            <li><strong>Secure Data Management:</strong> Ensure the privacy and security of student information.</li>
+            <li><strong>Search and Filter:</strong> Quickly find student records with our search functionality.</li>
+        </ul>
+    </div>
+
+</body>
+</html>
+
+

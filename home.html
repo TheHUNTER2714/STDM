@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: url('https://www.bing.com/th/id/OGC.e6b43171468d6ce396575b0303a85e34?pid=1.7&rurl=https%3a%2f%2fi.pinimg.com%2foriginals%2f0e%2f92%2f41%2f0e9241daba676d2ea4909f23c27461ab.gif&ehk=VhXm9rXJdHun2zcX0%2bZcsPhoEqjmRvORJZek1ViVk1Q%3d') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .gif-container {
+            margin-bottom: 10px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            overflow-y: auto;
+            max-height: 80vh;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .gender-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #357ab8;
+            transform: scale(1.05);
+        }
+
+        a {
+            color: white;
+            text-decoration: underline;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                max-height: 90vh;
+                padding: 15px;
+            }
+
+            button {
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+<div class="gif-container">
+    <img src="https://media.tenor.com/aB2Vyq7YU0kAAAAj/mttc-education.gif" alt="Welcome" width="80">
+</div>
+
+<h1>Rajkiya Engineering College Pratapgarh</h1>
+
+<form id="studentForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+
+    <label for="fathersName">Father's Name:</label>
+    <input type="text" id="fathersName" required>
+
+    <label for="mothersName">Mother's Name:</label>
+    <input type="text" id="mothersName" required>
+
+    <label for="rollNo">Roll No:</label>
+    <input type="text" id="rollNo" required>
+
+    <label for="branch">Branch:</label>
+    <input type="text" id="branch" required>
+
+    <label for="class10">Class 10 Marks (%):</label>
+    <input type="number" id="class10" min="0" max="100" required>
+
+    <label for="class12">Class 12 Marks (%):</label>
+    <input type="number" id="class12" min="0" max="100" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" required min="1">
+
+    <label for="mobile">Mobile No:</label>
+    <input type="text" id="mobile" required pattern="\d{10}" title="Please enter a valid 10-digit mobile number">
+
+    <label for="cgpa">CGPA:</label>
+    <input type="text" id="cgpa" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid CGPA (e.g., 3.75)">
+
+    <label for="grade">Grade:</label>
+    <input type="text" id="grade" required>
+
+    <label for="passport">Passport Size Photo:</label>
+    <input type="file" id="passport" accept="image/*" required>
+
+    <label>Gender:</label>
+    <div class="gender-container">
+        <label><input type="radio" name="gender" value="male" required> Male</label>
+        <label><input type="radio" name="gender" value="female"> Female</label>
+        <label><input type="radio" name="gender" value="non-binary"> Non-binary</label>
+        <label><input type="radio" name="gender" value="other"> Other</label>
+    </div>
+
+    <button type="submit">Add Student</button>
+    <button type="button" onclick="redirectToDisplay()">Next</button>
+</form>
+
+<a href="login.html">Back to Login</a>
+
+<script>
+    document.getElementById('studentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const student = {
+            name: document.getElementById('name').value,
+            fathersName: document.getElementById('fathersName').value,
+            mothersName: document.getElementById('mothersName').value,
+            rollNo: document.getElementById('rollNo').value,
+            branch: document.getElementById('branch').value,
+            class10: document.getElementById('class10').value,
+            class12: document.getElementById('class12').value,
+            age: document.getElementById('age').value,
+            mobile: document.getElementById('mobile').value,
+            cgpa: document.getElementById('cgpa').value,
+            grade: document.getElementById('grade').value,
+            gender: document.querySelector('input[name="gender"]:checked').value
+        };
+
+        const photoInput = document.getElementById('passport');
+        const reader = new FileReader();
+        reader.readAsDataURL(photoInput.files[0]);
+
+        reader.onload = function() {
+            student.photo = reader.result;
+
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            students.push(student);
+            localStorage.setItem('students', JSON.stringify(students));
+
+            alert('Student added successfully!');
+            document.getElementById('studentForm').reset();
+        };
+    });
+
+    function redirectToDisplay() {
+        window.location.href = 'display.html';
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
