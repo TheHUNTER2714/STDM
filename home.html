@@ -73,6 +73,12 @@
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #4a90e2; /* Highlight border on focus */
+            outline: none; /* Remove default outline */
         }
 
         .gender-container {
@@ -165,6 +171,9 @@
     <label for="passport">Passport Size Photo:</label>
     <input type="file" id="passport" accept="image/*" required>
 
+    <label for="documents">Upload Documents (optional):</label>
+    <input type="file" id="documents" accept=".pdf,.doc,.docx,.jpg,.png" multiple>
+
     <label>Gender:</label>
     <div class="gender-container">
         <label><input type="radio" name="gender" value="male" required> Male</label>
@@ -205,12 +214,38 @@
         reader.onload = function() {
             student.photo = reader.result;
 
-            let students = JSON.parse(localStorage.getItem('students')) || [];
-            students.push(student);
-            localStorage.setItem('students', JSON.stringify(students));
+            const documentInput = document.getElementById('documents');
+            const documentFiles = documentInput.files;
+            student.documents = [];
 
-            alert('Student added successfully!');
-            document.getElementById('studentForm').reset();
+            for (let i = 0; i < documentFiles.length; i++) {
+                const docReader = new FileReader();
+                docReader.readAsDataURL(documentFiles[i]);
+
+                docReader.onload = function() {
+                    student.documents.push(docReader.result);
+                    
+                    // Save the student details after the last document is read
+                    if (student.documents.length === documentFiles.length) {
+                        let students = JSON.parse(localStorage.getItem('students')) || [];
+                        students.push(student);
+                        localStorage.setItem('students', JSON.stringify(students));
+
+                        alert('Student added successfully!');
+                        document.getElementById('studentForm').reset();
+                    }
+                };
+            }
+            
+            // If no documents are uploaded, proceed with saving the student data
+            if (documentFiles.length === 0) {
+                let students = JSON.parse(localStorage.getItem('students')) || [];
+                students.push(student);
+                localStorage.setItem('students', JSON.stringify(students));
+
+                alert('Student added successfully!');
+                document.getElementById('studentForm').reset();
+            }
         };
     });
 
