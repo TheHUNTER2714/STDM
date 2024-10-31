@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logout</title>
+    <title>Logout - Student Database Management System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,28 +15,36 @@
             align-items: center;
             height: 100vh;
             color: white;
-            position: relative; /* Positioning for overlay */
-            overflow: hidden; /* Prevent overflow due to the GIF */
+            position: relative;
+            overflow: hidden;
         }
 
         .background {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1; /* Keep background behind content */
-            opacity: 0.8; /* Make background slightly transparent */
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.8;
+            background: url('https://media1.tenor.com/images/6f1cb1da5f807496eb0f6e75158db687/tenor.gif') no-repeat center center;
+            background-size: cover;
         }
 
         h1 {
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for better visibility */
+            margin-bottom: 10px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        p {
+            margin: 0 0 20px;
+            font-size: 1.2em;
         }
 
         .button-container {
             display: flex;
-            gap: 10px; /* Space between buttons */
+            gap: 10px;
         }
 
         button {
@@ -46,44 +54,56 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 1em;
             transition: background-color 0.3s, transform 0.2s;
         }
 
-        button:hover {
+        button:focus, button:hover {
             background-color: #357ab8;
             transform: scale(1.05);
+            outline: none;
         }
 
-        a {
-            color: white;
+        .link {
+            margin-top: 15px;
+            font-size: 1em;
+        }
+
+        .link a {
+            color: #ff6347;
             text-decoration: underline;
-            margin-top: 10px;
+        }
+
+        .link a:hover {
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-
-    <div class="background">
-        <img src="https://www.bing.com/th/id/OGC.6f1cb1da5f807496eb0f6e75158db687?pid=1.7&rurl=https%3a%2f%2fmedia1.tenor.com%2fimages%2f6f1cb1da5f807496eb0f6e75158db687%2ftenor.gif%3fitemid%3d12086066&ehk=afpOl4woEAfxNI7uYgQ6d6qBC%2fiTQ1ZPDry8h2AkR2o%3d" alt="Background GIF" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
+    <div class="background"></div>
 
     <h1>You have been logged out</h1>
-    <p>Thank you for using our system.</p>
+    <p>Thank you for using our system. Please choose an option below to continue:</p>
 
     <div class="button-container">
         <button onclick="redirectToRegister()">Register</button>
         <button onclick="redirectToHome()">Home</button>
     </div>
 
+    <div class="link">
+        <p><a href="help.html">Need Assistance?</a></p>
+    </div>
+
     <script>
         function redirectToRegister() {
-            window.location.href = 'register.html'; // Redirects to register.html
+            window.location.href = 'register.html';
         }
 
         function redirectToHome() {
-            window.location.href = 'index.html'; // Redirects to home page
+            window.location.href = 'index.html';
         }
     </script>
 </body>
 </html>
+
 
