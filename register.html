@@ -13,20 +13,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* Stack elements vertically */
+            flex-direction: column;
             background: url('https://media.tenor.com/iZgF8NBZ1acAAAAM/rsc2020-elpradiant2020.gif') no-repeat center center fixed;
-            background-size: cover; /* Ensure the GIF covers the entire background */
-            position: relative; /* Allow positioning of the overlay */
+            background-size: cover;
+            position: relative;
         }
 
         .overlay {
-            position: absolute; /* Position overlay relative to body */
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
-            z-index: 1; /* Ensure the overlay is above the background */
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
         form {
@@ -35,17 +35,17 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
-            opacity: 0; /* Start hidden */
-            transform: translateY(-20px); /* Start slightly above */
-            animation: fadeInUp 0.5s forwards; /* Animation */
-            position: relative; /* Keep form above the overlay */
-            z-index: 2; /* Ensure the form is above the overlay */
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 0.5s forwards;
+            position: relative;
+            z-index: 2;
         }
 
         @keyframes fadeInUp {
             to {
-                opacity: 1; /* Fully visible */
-                transform: translateY(0); /* Move to original position */
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -54,18 +54,18 @@
             margin: 10px 0 5px;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            transition: border-color 0.3s; /* Smooth border color transition */
+            transition: border-color 0.3s;
         }
 
-        input:focus {
-            border-color: #4a90e2; /* Change border color on focus */
-            outline: none; /* Remove default outline */
+        input:focus, select:focus {
+            border-color: #4a90e2;
+            outline: none;
         }
 
         button {
@@ -75,12 +75,12 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         button:hover {
-            background-color: #357ab8; /* Darker shade on hover */
-            transform: scale(1.05); /* Slightly enlarge on hover */
+            background-color: #357ab8;
+            transform: scale(1.05);
         }
 
         .error {
@@ -91,7 +91,7 @@
         .link {
             margin-top: 10px;
             text-align: center;
-            z-index: 2; /* Ensure link is above overlay */
+            z-index: 2;
         }
 
         .link a {
@@ -102,21 +102,11 @@
         .link a:hover {
             text-decoration: underline;
         }
-
-        .gif-container {
-            margin-bottom: 20px; /* Space between GIF and form */
-            z-index: 2; /* Ensure GIF is above the overlay */
-        }
-
-        img {
-            max-width: 100%; /* Responsive GIF */
-            height: auto; /* Maintain aspect ratio */
-        }
     </style>
 </head>
 <body>
 
-<div class="overlay"></div> <!-- Dark overlay for better text visibility -->
+<div class="overlay"></div>
 <div class="gif-container">
     <img src="https://media.tenor.com/aB2Vyq7YU0kAAAAj/mttc-education.gif" alt="Register Now!">
 </div>
@@ -125,48 +115,55 @@
     <h2>Register</h2>
     <label for="username">Username:</label>
     <input type="text" id="username" required>
-    
+
+    <label for="role">Role:</label>
+    <select id="role" required>
+        <option value="Student">Student</option>
+        <option value="Teacher">Teacher</option>
+        <option value="Admin">Admin</option>
+    </select>
+
     <label for="password">Password:</label>
     <input type="password" id="password" required>
-    
+
     <label for="confirmPassword">Confirm Password:</label>
     <input type="password" id="confirmPassword" required>
-    
+
     <button type="submit">Register</button>
     <div class="error" id="errorMessage"></div>
 </form>
 
 <div class="link">
     <p>Already have an account? <a href="login.html">Login here</a></p>
+    <p><a href="help.html">Need Help?</a></p>
 </div>
 
 <script>
     document.getElementById('registerForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault();
 
-        // Get input values
         const username = document.getElementById('username').value;
+        const role = document.getElementById('role').value;
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         const errorMessage = document.getElementById('errorMessage');
 
-        // Simple validation for password match
         if (password !== confirmPassword) {
             errorMessage.textContent = 'Passwords do not match!';
-            return; // Stop execution if passwords don't match
+            return;
         }
 
-        // Clear any previous error messages
+        if (password.length < 8) {
+            errorMessage.textContent = 'Password must be at least 8 characters long!';
+            return;
+        }
+
         errorMessage.textContent = '';
 
-        // Simulate registration success (In a real app, this would involve server-side logic)
-        alert('Registration successful! Redirecting to login...');
-
-        // Redirect to login page
+        alert(`Registration successful for ${role}! Redirecting to login...`);
         window.location.href = 'login.html';
     });
 </script>
 
 </body>
 </html>
-
