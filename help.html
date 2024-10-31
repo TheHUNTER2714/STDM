@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - Student Database Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            background: url('https://media1.giphy.com/media/vqQtUkkRKuAsbKF0m5/giphy.webp?cid=ecf05e47v12gbqdrctom5zrh2lt1tjducsvnhq143cvxjx7p&ep=v1_gifs_search&rid=giphy.webp&ct=g') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-top: 50px;
+            font-size: 2.5em;
+            color: #4a90e2;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .section {
+            margin: 30px 0;
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .section h2 {
+            color: #4a90e2;
+        }
+
+        .contact-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-options a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .contact-options a:hover {
+            color: #357ab8;
+        }
+
+        .back-button {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #357ab8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div> <!-- Dark overlay for readability -->
+
+    <div class="content">
+        <h1>Help Center</h1>
+        <p>Welcome to the Help Center. Here, you can find answers to common questions or reach out for additional support.</p>
+
+        <div class="section">
+            <h2>Frequently Asked Questions</h2>
+            <p><strong>1. How do I reset my password?</strong><br>
+               You can reset your password by clicking the “Forgot Password?” link on the login page.</p>
+            <p><strong>2. I forgot my username. What should I do?</strong><br>
+               Contact our support team to retrieve your username.</p>
+        </div>
+
+        <div class="section">
+            <h2>Contact Support</h2>
+            <div class="contact-options">
+                <a href="mailto:support@yourdomain.com">Email Support</a>
+                <a href="tel:+1234567890">Call Support: +1 234-567-890</a>
+            </div>
+        </div>
+
+        <button class="back-button" onclick="goBack()">Go Back</button>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+</html>
