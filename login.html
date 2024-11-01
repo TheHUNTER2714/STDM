@@ -44,7 +44,7 @@
             margin: 10px 0 5px;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
@@ -52,7 +52,7 @@
             border-radius: 5px;
         }
 
-        input:focus {
+        input:focus, select:focus {
             border-color: #4a90e2;
             outline: none;
         }
@@ -100,6 +100,15 @@
 
     <form id="loginForm">
         <h2>Login</h2>
+        
+        <label for="role">Role:</label>
+        <select id="role" required>
+            <option value="">Select Role</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+        </select>
+        
         <label for="username">Username:</label>
         <input type="text" id="username" required>
         
@@ -124,20 +133,29 @@
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
 
+            const role = document.getElementById('role').value;
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            if (username.trim() === "" || password.trim() === "") {
-                alert("Please fill in both fields.");
+            if (role === "" || username.trim() === "" || password.trim() === "") {
+                alert("Please fill in all fields.");
                 return;
             }
 
             // Add authentication logic here (e.g., call server API)
-
-            alert("Login successful!");
-            window.location.href = 'home.html';
+            alert("Login successful! You are logged in as " + role + ".");
+            
+            // Redirect based on role
+            if (role === 'teacher') {
+                window.location.href = 'teacher.html'; // Redirect to Teacher Dashboard
+            } else if (role === 'student') {
+                window.location.href = 'student_entry.html'; // Redirect to Student Entry
+            } else if (role === 'admin') {
+                window.location.href = 'admin.html'; // Redirect to Admin Dashboard
+            } else {
+                alert("Invalid role selected.");
+            }
         });
     </script>
 </body>
 </html>
-
