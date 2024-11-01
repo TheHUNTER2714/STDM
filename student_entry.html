@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Entry - Student Database Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://www.bing.com/th/id/OGC.c5f2695092614f946b320a8f556e828b?pid=1.7&rurl=https%3a%2f%2fcdn.dribbble.com%2fusers%2f1160991%2fscreenshots%2f6827662%2fcharacter_student.gif&ehk=u9nWMCr%2bZvke%2bVg%2bBeAzkOaR%2bHGrpHMZdFj0ie34YVk%3d') no-repeat center center fixed; /* Added the new GIF */
+            background-size: cover;
+            position: relative;
+        }
+        .profile-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+        .profile {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            z-index: 3;
+        }
+        .profile h2 {
+            margin-top: 0;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        .nav-links a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        form {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+            margin-top: 100px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #357ab8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Profile Icon -->
+    <div class="profile-icon" onclick="toggleProfile()">
+        <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" alt="Profile Icon">
+    </div>
+
+    <!-- Profile Section -->
+    <div class="profile" id="profile">
+        <h2>Profile</h2>
+        <p><strong>Username:</strong> <span id="username">student_user</span></p>
+        <div class="nav-links">
+            <a href="logout.html">Logout</a>
+        </div>
+    </div>
+
+    <!-- Student Entry Form -->
+    <form id="studentForm">
+        <h2>Student Entry Form</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        
+        <label for="fathersName">Father's Name:</label>
+        <input type="text" id="fathersName" required>
+        
+        <label for="mothersName">Mother's Name:</label>
+        <input type="text" id="mothersName" required>
+        
+        <label for="rollNo">Roll No:</label>
+        <input type="text" id="rollNo" required>
+        
+        <label for="branch">Branch:</label>
+        <input type="text" id="branch" required>
+        
+        <label for="class10">Class 10 Marks (%):</label>
+        <input type="number" id="class10" required>
+        
+        <label for="class12">Class 12 Marks (%):</label>
+        <input type="number" id="class12" required>
+        
+        <label for="age">Age:</label>
+        <input type="number" id="age" required>
+        
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        
+        <label for="mobile">Mobile No:</label>
+        <input type="text" id="mobile" required>
+        
+        <label for="cgpa">CGPA:</label>
+        <input type="number" id="cgpa" step="0.01" required>
+
+        <!-- Upload Passport Photo -->
+        <label for="passportPhoto">Upload Passport-size Photo:</label>
+        <input type="file" id="passportPhoto" accept="image/*" required>
+
+        <!-- Upload Multiple Documents -->
+        <label for="documents">Upload Documents:</label>
+        <input type="file" id="documents" accept=".pdf,.doc,.docx" multiple required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Function to toggle profile visibility
+        function toggleProfile() {
+            const profile = document.getElementById('profile');
+            profile.style.display = profile.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Form submission handling
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Student entry submitted successfully with photo and documents!');
+            document.getElementById('studentForm').reset();
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
