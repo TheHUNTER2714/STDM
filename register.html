@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Student Database Management System</title>
     <style>
+        /* Styling remains the same */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -107,9 +108,6 @@
 <body>
 
 <div class="overlay"></div>
-<div class="gif-container">
-    <img src="https://media.tenor.com/aB2Vyq7YU0kAAAAj/mttc-education.gif" alt="Register Now!">
-</div>
 
 <form id="registerForm">
     <h2>Register</h2>
@@ -148,22 +146,48 @@
         const confirmPassword = document.getElementById('confirmPassword').value;
         const errorMessage = document.getElementById('errorMessage');
 
+        // Password validation
         if (password !== confirmPassword) {
             errorMessage.textContent = 'Passwords do not match!';
             return;
         }
-
         if (password.length < 8) {
             errorMessage.textContent = 'Password must be at least 8 characters long!';
             return;
         }
+        
+        errorMessage.textContent = ''; // Clear any previous error message
 
-        errorMessage.textContent = '';
+        // Create user data object
+        const userData = {
+            username: username,
+            role: role,
+            password: password // Store password if necessary for further logic, but avoid this in production
+        };
 
-        alert(`Registration successful for ${role}! Redirecting to login...`);
-        window.location.href = 'login.html';
+        // Retrieve existing users from local storage
+        const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+        // Add the new user
+        existingUsers.push(userData);
+
+        // Save back to local storage
+        localStorage.setItem('users', JSON.stringify(existingUsers));
+
+        // Redirect based on role
+        if (role === 'Admin') {
+            alert(`Registration successful! Redirecting to Admin Dashboard...`);
+            window.location.href = 'admin.html'; // Redirect to Admin Dashboard
+        } else if (role === 'Teacher') {
+            alert(`Registration successful! Redirecting to Teacher Dashboard...`);
+            window.location.href = 'teacher.html'; // Redirect to Teacher Dashboard
+        } else {
+            alert(`Registration successful! Redirecting to Student Entry...`);
+            window.location.href = 'student_entry.html'; // Redirect to Student Entry
+        }
     });
 </script>
 
 </body>
 </html>
+
