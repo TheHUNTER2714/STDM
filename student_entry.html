@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background: url('https://www.bing.com/th/id/OGC.c5f2695092614f946b320a8f556e828b?pid=1.7&rurl=https%3a%2f%2fcdn.dribbble.com%2fusers%2f1160991%2fscreenshots%2f6827662%2fcharacter_student.gif&ehk=u9nWMCr%2bZvke%2bVg%2bBeAzkOaR%2bHGrpHMZdFj0ie34YVk%3d') no-repeat center center fixed; /* Added the new GIF */
+            background: url('https://www.bing.com/th/id/OGC.c5f2695092614f946b320a8f556e828b?pid=1.7&rurl=https%3a%2f%2fcdn.dribbble.com%2fusers%2f1160991%2fscreenshots%2f6827662%2fcharacter_student.gif&ehk=u9nWMCr%2bZvke%2bVg%2bBeAzkOaR%2bHGrpHMZdFj0ie34YVk%3d') no-repeat center center fixed;
             background-size: cover;
             position: relative;
         }
@@ -156,8 +156,15 @@
         // Form submission handling
         document.getElementById('studentForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            
+            // Display confirmation message
             alert('Student entry submitted successfully with photo and documents!');
+            
+            // Reset the form
             document.getElementById('studentForm').reset();
+            
+            // Redirect to logout.html
+            window.location.href = 'logout.html';
         });
     </script>
 
