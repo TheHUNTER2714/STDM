@@ -17,6 +17,7 @@
             background: url('https://i.giphy.com/media/aQCCNezRpb9Hq/giphy.gif') no-repeat center center fixed;
             background-size: cover;
             animation: gradient 5s ease infinite;
+            position: relative;
         }
 
         @keyframes gradient {
@@ -115,18 +116,50 @@
             display: flex;
             gap: 5px;
         }
+
+        .profile-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            width: 30px; /* Adjust icon size */
+            height: 30px; /* Adjust icon size */
+            z-index: 2;
+        }
+
+        .profile {
+            display: none; /* Hidden by default */
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: absolute;
+            top: 60px; /* Position below the icon */
+            left: 20px;
+            z-index: 3;
+        }
     </style>
 </head>
 <body>
 
-<!-- Navigation Links -->
-<div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="login.html">Login</a>
-    <a href="logout.html">Logout</a>
+<h1>Student Records</h1>
+
+<!-- Profile Icon -->
+<div class="profile-icon" onclick="toggleProfile()">
+    <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" alt="Profile Icon" />
 </div>
 
-<h1>Student Records</h1>
+<!-- Profile Section -->
+<div class="profile" id="profile">
+    <h2>Profile</h2>
+    <p><strong>Username:</strong> <span id="username">student_user</span></p>
+    <p><strong>Role:</strong> <span id="role">Student</span></p>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="logout.html">Logout</a>
+    </div>
+</div>
 
 <table id="studentTable">
     <thead>
@@ -158,6 +191,23 @@
 </div>
 
 <script>
+    // Sample data for profile (you can replace it with actual user data if available)
+    const username = 'student_user'; // Replace with actual username
+    const role = 'Student'; // Replace with actual role
+
+    // Set profile information
+    document.getElementById('username').textContent = username;
+    document.getElementById('role').textContent = role;
+
+    function toggleProfile() {
+        const profile = document.getElementById('profile');
+        if (profile.style.display === 'block') {
+            profile.style.display = 'none'; // Hide profile
+        } else {
+            profile.style.display = 'block'; // Show profile
+        }
+    }
+
     function populateTable() {
         const students = JSON.parse(localStorage.getItem('students')) || [];
         const tableBody = document.getElementById('studentTable').getElementsByTagName('tbody')[0];
