@@ -14,7 +14,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: url('https://www.bing.com/th/id/OGC.e6b43171468d6ce396575b0303a85e34?pid=1.7&rurl=https%3a%2f%2fi.pinimg.com%2foriginals%2f0e%2f92%2f41%2f0e9241daba676d2ea4909f23c27461ab.gif&ehk=VhXm9rXJdHun2zcX0%2bZcsPhoEqjmRvORJZek1ViVk1Q%3d') no-repeat center center fixed;
+            background: url('https://media.tenor.com/iZgF8NBZ1acAAAAM/rsc2020-elpradiant2020.gif') no-repeat center center fixed;
             background-size: cover;
             position: relative;
         }
@@ -41,6 +41,29 @@
             margin-bottom: 10px;
             text-align: center;
             z-index: 2;
+        }
+
+        .profile-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            width: 30px; /* Adjust icon size */
+            height: 30px; /* Adjust icon size */
+            z-index: 2;
+        }
+
+        .profile {
+            display: none; /* Hidden by default */
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: absolute;
+            top: 60px; /* Position below the icon */
+            left: 20px;
+            z-index: 3;
         }
 
         form {
@@ -77,8 +100,8 @@
         }
 
         input:focus {
-            border-color: #4a90e2; /* Highlight border on focus */
-            outline: none; /* Remove default outline */
+            border-color: #4a90e2;
+            outline: none;
         }
 
         .gender-container {
@@ -132,7 +155,19 @@
     <img src="https://media.tenor.com/aB2Vyq7YU0kAAAAj/mttc-education.gif" alt="Welcome" width="80">
 </div>
 
-<h1>Rajkiya Engineering College Pratapgarh</h1>
+<h1>Add new student</h1>
+
+<!-- Profile Icon -->
+<div class="profile-icon" onclick="toggleProfile()">
+    <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" alt="Profile Icon" />
+</div>
+
+<!-- Profile Section -->
+<div class="profile" id="profile">
+    <h2>Profile</h2>
+    <p><strong>Username:</strong> <span id="username">student_user</span></p>
+    <p><strong>Role:</strong> <span id="role">Student</span></p>
+</div>
 
 <form id="studentForm">
     <label for="name">Name:</label>
@@ -178,7 +213,6 @@
     <div class="gender-container">
         <label><input type="radio" name="gender" value="male" required> Male</label>
         <label><input type="radio" name="gender" value="female"> Female</label>
-        <label><input type="radio" name="gender" value="non-binary"> Non-binary</label>
         <label><input type="radio" name="gender" value="other"> Other</label>
     </div>
 
@@ -189,6 +223,23 @@
 <a href="login.html">Back to Login</a>
 
 <script>
+    // Sample data for profile (you can replace it with actual user data if available)
+    const username = 'student_user'; // Replace with actual username
+    const role = 'Student'; // Replace with actual role
+
+    // Set profile information
+    document.getElementById('username').textContent = username;
+    document.getElementById('role').textContent = role;
+
+    function toggleProfile() {
+        const profile = document.getElementById('profile');
+        if (profile.style.display === 'block') {
+            profile.style.display = 'none'; // Hide profile
+        } else {
+            profile.style.display = 'block'; // Show profile
+        }
+    }
+
     document.getElementById('studentForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
