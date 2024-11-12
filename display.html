@@ -187,7 +187,7 @@
 </table>
 
 <div class="button-container">
-    <button onclick="window.location.href='home.html'">Add New Student</button>
+    <button onclick="window.location.href='student_entry.html'">Add New Student</button>
 </div>
 
 <script>
@@ -249,7 +249,7 @@
             // Actions
             const actionsCell = newRow.insertCell(14);
             actionsCell.className = 'edit-buttons';
-            actionsCell.innerHTML = `
+            actionsCell.innerHTML = ` 
                 <button onclick="editStudent('${student.rollNo}')">Edit</button>
                 <button onclick="deleteStudent('${student.rollNo}')">Delete</button>
             `;
@@ -260,26 +260,9 @@
         const students = JSON.parse(localStorage.getItem('students')) || [];
         const student = students.find(s => s.rollNo === rollNo);
         if (student) {
-            // Redirect to home.html with student data in sessionStorage for editing
-            sessionStorage.setItem('editStudent', JSON.stringify(student));
-            window.location.href = 'home.html';
-        }
-    }
+            // Redirect to student_entry.html with student data in sessionStorage for editing
+            sessionStorage.setItem('edit
 
-    function deleteStudent(rollNo) {
-        if (confirm('Are you sure you want to delete this student?')) {
-            const students = JSON.parse(localStorage.getItem('students')) || [];
-            const updatedStudents = students.filter(s => s.rollNo !== rollNo);
-            localStorage.setItem('students', JSON.stringify(updatedStudents));
-            populateTable();
-        }
-    }
-
-    window.onload = populateTable;
-</script>
-
-</body>
-</html>
 
 
 
