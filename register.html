@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Student Database Management System</title>
     <style>
-        /* Styling remains the same */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -26,7 +25,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(159, 158, 163, 0.418);
             z-index: 1;
         }
 
@@ -116,9 +115,9 @@
 
     <label for="role">Role:</label>
     <select id="role" required>
-        <option value="Student">Student</option>
-        <option value="Teacher">Teacher</option>
-        <option value="Admin">Admin</option>
+        <option value="student">Student</option>
+        <option value="teacher">Teacher</option>
+        <option value="admin">Admin</option>
     </select>
 
     <label for="password">Password:</label>
@@ -140,7 +139,7 @@
     document.getElementById('registerForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const username = document.getElementById('username').value;
+        const username = document.getElementById('username').value.trim();
         const role = document.getElementById('role').value;
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
@@ -155,35 +154,37 @@
             errorMessage.textContent = 'Password must be at least 8 characters long!';
             return;
         }
-        
+
         errorMessage.textContent = ''; // Clear any previous error message
 
-        // Create user data object
-        const userData = {
-            username: username,
-            role: role,
-            password: password // Store password if necessary for further logic, but avoid this in production
-        };
-
         // Retrieve existing users from local storage
-        const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+        const existingUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
 
-        // Add the new user
-        existingUsers.push(userData);
+        // Check if username is already taken
+        if (existingUsers.some(user => user.username === username && user.role === role)) {
+            errorMessage.textContent = 'Username is already taken for this role!';
+            return;
+        }
 
-        // Save back to local storage
-        localStorage.setItem('users', JSON.stringify(existingUsers));
+        // Create user data object
+        const newUser = { username, role, password };
+
+        // Add the new user to the list of registered users
+        existingUsers.push(newUser);
+
+        // Save updated users list back to local storage
+        localStorage.setItem('registeredUsers', JSON.stringify(existingUsers));
 
         // Redirect based on role
-        if (role === 'Admin') {
+        if (role === 'admin') {
             alert(`Registration successful! Redirecting to Admin Dashboard...`);
-            window.location.href = 'admin.html'; // Redirect to Admin Dashboard
-        } else if (role === 'Teacher') {
+            window.location.href = 'admin.html';
+        } else if (role === 'teacher') {
             alert(`Registration successful! Redirecting to Teacher Dashboard...`);
-            window.location.href = 'teacher.html'; // Redirect to Teacher Dashboard
+            window.location.href = 'teacher.html';
         } else {
             alert(`Registration successful! Redirecting to Student Entry...`);
-            window.location.href = 'student_entry.html'; // Redirect to Student Entry
+            window.location.href = 'student_entry.html';
         }
     });
 </script>
