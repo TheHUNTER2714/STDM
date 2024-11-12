@@ -135,14 +135,6 @@
         <label for="cgpa">CGPA:</label>
         <input type="number" id="cgpa" step="0.01" required>
 
-        <!-- Upload Passport Photo -->
-        <label for="passportPhoto">Upload Passport-size Photo:</label>
-        <input type="file" id="passportPhoto" accept="image/*" required>
-
-        <!-- Upload Multiple Documents -->
-        <label for="documents">Upload Documents:</label>
-        <input type="file" id="documents" accept=".pdf,.doc,.docx" multiple required>
-
         <button type="submit">Submit</button>
     </form>
 
@@ -156,15 +148,27 @@
         // Form submission handling
         document.getElementById('studentForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            
-            // Display confirmation message
-            alert('Student entry submitted successfully with photo and documents!');
-            
-            // Reset the form
-            document.getElementById('studentForm').reset();
-            
-            // Redirect to logout.html
-            window.location.href = 'logout.html';
+
+            // Collect form data
+            const studentData = {
+                name: document.getElementById('name').value,
+                fathersName: document.getElementById('fathersName').value,
+                mothersName: document.getElementById('mothersName').value,
+                rollNo: document.getElementById('rollNo').value,
+                branch: document.getElementById('branch').value,
+                class10: document.getElementById('class10').value,
+                class12: document.getElementById('class12').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                mobile: document.getElementById('mobile').value,
+                cgpa: document.getElementById('cgpa').value,
+            };
+
+            // Save data to localStorage
+            localStorage.setItem('studentData', JSON.stringify(studentData));
+
+            // Redirect to display.html
+            window.location.href = 'display.html';
         });
     </script>
 
