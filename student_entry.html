@@ -30,10 +30,16 @@
         }
 
         h1 {
-            color: rgb(19, 11, 11);
+            color: white;
             margin-bottom: 10px;
             text-align: center;
             font-weight: bold;
+            z-index: 2;
+        }
+
+        .gif-container {
+            margin-bottom: 10px;
+            text-align: center;
             z-index: 2;
         }
 
@@ -42,20 +48,20 @@
             top: 20px;
             left: 20px;
             cursor: pointer;
-            width: 30px;
-            height: 30px;
+            width: 30px; /* Adjust icon size */
+            height: 30px; /* Adjust icon size */
             z-index: 2;
         }
 
         .profile {
-            display: none;
-            background: rgba(240, 233, 233, 0.9);
+            display: none; /* Hidden by default */
+            background: rgba(255, 255, 255, 0.9);
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             position: absolute;
-            top: 60px;
+            top: 60px; /* Position below the icon */
             left: 20px;
             z-index: 3;
         }
@@ -104,10 +110,14 @@
             margin-bottom: 10px;
         }
 
+        .spaced-button {
+            margin-bottom: 10px;
+        }
+        
         button {
             padding: 10px 15px;
             background-color: #4a90e2;
-            color: rgb(239, 230, 230);
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -121,7 +131,7 @@
         }
 
         a {
-            color: rgb(6, 1, 1);
+            color: white;
             text-decoration: underline;
             display: block;
             text-align: center;
@@ -143,11 +153,15 @@
     </style>
 </head>
 <body>
+
+<div class="overlay"></div>
+</div>
+
 <h1>Student Entry Form</h1>
 
 <!-- Profile Icon -->
 <div class="profile-icon" onclick="toggleProfile()">
-    <img src="https://img.icons8.com/material-outlined/24/000000/user.png" alt="Profile Icon" />
+    <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" alt="Profile Icon" />
 </div>
 
 <!-- Profile Section -->
@@ -170,8 +184,21 @@
     <label for="rollNo">Roll No:</label>
     <input type="text" id="rollNo" required>
 
+    <label for="fatherMobile">Father's Mobile No:</label>
+    <input type="text" id="fatherMobile" required pattern="\d{10}" title="Please enter a valid 10-digit mobile number">
+
     <label for="branch">Branch:</label>
     <input type="text" id="branch" required>
+
+    <label for="email">Email ID:</label>
+    <input type="email" id="email" required>
+
+    <label>Gender:</label>
+    <div class="gender-container">
+        <label><input type="radio" name="gender" value="male" required> Male</label>
+        <label><input type="radio" name="gender" value="female"> Female</label>
+        <label><input type="radio" name="gender" value="other"> Other</label>
+    </div>
 
     <label for="class10">Class 10 Marks (%):</label>
     <input type="number" id="class10" min="0" max="100" required>
@@ -191,35 +218,41 @@
     <label for="grade">Grade:</label>
     <input type="text" id="grade" required>
 
+    <label>College Fees Paid:</label>
+    <input type="checkbox" id="feesPaid" onclick="toggleFeesInput()">
+    <div id="feesAmountContainer" style="display: none;">
+        <label for="feesAmount">Amount Paid:</label>
+        <input type="number" id="feesAmount" min="0" placeholder="Enter amount if paid">
+    </div>
+
     <label for="passport">Passport Size Photo:</label>
     <input type="file" id="passport" accept="image/*" required>
 
     <label for="documents">Upload Documents (optional):</label>
     <input type="file" id="documents" accept=".pdf,.doc,.docx,.jpg,.png" multiple>
 
-    <label>Gender:</label>
-    <div class="gender-container">
-        <label><input type="radio" name="gender" value="male" required> Male</label>
-        <label><input type="radio" name="gender" value="female"> Female</label>
-        <label><input type="radio" name="gender" value="other"> Other</label>
-    </div>
-
-    <button type="submit">Add Student</button>
+    <button type="submit" class="spaced-button">Add Student</button>
     <button type="button" onclick="redirectToDisplay()">Next</button>
 </form>
 
 <a href="login.html">Back to Login</a>
 
 <script>
-    const username = 'student_user';
-    const role = 'Student';
+    // Sample data for profile (you can replace it with actual user data if available)
+    const username = 'student_user'; // Replace with actual username
+    const role = 'Student'; // Replace with actual role
 
+    // Set profile information
     document.getElementById('username').textContent = username;
     document.getElementById('role').textContent = role;
 
     function toggleProfile() {
         const profile = document.getElementById('profile');
-        profile.style.display = profile.style.display === 'block' ? 'none' : 'block';
+        if (profile.style.display === 'block') {
+            profile.style.display = 'none'; // Hide profile
+        } else {
+            profile.style.display = 'block'; // Show profile
+        }
     }
 
     document.getElementById('studentForm').addEventListener('submit', function(event) {
@@ -242,18 +275,54 @@
 
         const photoInput = document.getElementById('passport');
         const reader = new FileReader();
+        reader.readAsDataURL(photoInput.files[0]);
+
         reader.onload = function() {
             student.photo = reader.result;
-            localStorage.setItem('studentData', JSON.stringify(student));
-            alert('Student added successfully!');
-        };
-        reader.readAsDataURL(photoInput.files[0]);
-    });
 
+            const documentInput = document.getElementById('documents');
+            const documentFiles = documentInput.files;
+            student.documents = [];
+
+            for (let i = 0; i < documentFiles.length; i++) {
+                const docReader = new FileReader();
+                docReader.readAsDataURL(documentFiles[i]);
+
+                docReader.onload = function() {
+                    student.documents.push(docReader.result);
+                    
+                    // Save the student details after the last document is read
+                    if (student.documents.length === documentFiles.length) {
+                        let students = JSON.parse(localStorage.getItem('students')) || [];
+                        students.push(student);
+                        localStorage.setItem('students', JSON.stringify(students));
+
+                        alert('Student added successfully!');
+                        document.getElementById('studentForm').reset();
+                    }
+                };
+            }
+            
+            // If no documents are uploaded, proceed with saving the student data
+            if (documentFiles.length === 0) {
+                let students = JSON.parse(localStorage.getItem('students')) || [];
+                students.push(student);
+                localStorage.setItem('students', JSON.stringify(students));
+
+                alert('Student added successfully!');
+                document.getElementById('studentForm').reset();
+            }
+        };
+    });
+    function toggleFeesInput() {
+        const feesAmountContainer = document.getElementById('feesAmountContainer');
+        feesAmountContainer.style.display = document.getElementById('feesPaid').checked ? 'block' : 'none';
+    }
     function redirectToDisplay() {
         window.location.href = 'logout.html';
     }
 </script>
+
 </body>
 </html>
 
