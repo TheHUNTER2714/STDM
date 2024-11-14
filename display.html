@@ -122,20 +122,23 @@
             top: 20px;
             left: 20px;
             cursor: pointer;
-            width: 30px; /* Adjust icon size */
-            height: 30px; /* Adjust icon size */
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 2;
         }
 
         .profile {
-            display: none; /* Hidden by default */
+            display: none;
             background: rgba(255, 255, 255, 0.9);
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             position: absolute;
-            top: 60px; /* Position below the icon */
+            top: 60px;
             left: 20px;
             z-index: 3;
         }
@@ -166,6 +169,7 @@
         <tr>
             <th>Name</th>
             <th>Father's Name</th>
+            <th>Father's Phone No</th>
             <th>Mother's Name</th>
             <th>Roll No</th>
             <th>Branch</th>
@@ -176,6 +180,7 @@
             <th>Mobile No</th>
             <th>CGPA</th>
             <th>Grade</th>
+            <th>College Fees</th>
             <th>Passport Photo</th>
             <th>Documents</th>
             <th>Actions</th>
@@ -191,46 +196,42 @@
 </div>
 
 <script>
-    // Sample data for profile (you can replace it with actual user data if available)
     const username = 'student_user'; // Replace with actual username
     const role = 'Student'; // Replace with actual role
 
-    // Set profile information
+    // Update profile information
     document.getElementById('username').textContent = username;
     document.getElementById('role').textContent = role;
 
     function toggleProfile() {
         const profile = document.getElementById('profile');
-        if (profile.style.display === 'block') {
-            profile.style.display = 'none'; // Hide profile
-        } else {
-            profile.style.display = 'block'; // Show profile
-        }
+        profile.style.display = profile.style.display === 'block' ? 'none' : 'block';
     }
 
     function populateTable() {
         const students = JSON.parse(localStorage.getItem('students')) || [];
-        const tableBody = document.getElementById('studentTable').getElementsByTagName('tbody')[0];
-        tableBody.innerHTML = ''; // Clear existing rows
+        const tableBody = document.getElementById('studentTable').querySelector('tbody');
+        tableBody.innerHTML = '';
 
         students.forEach((student) => {
             const newRow = tableBody.insertRow();
 
             newRow.insertCell(0).textContent = student.name;
             newRow.insertCell(1).textContent = student.fathersName;
-            newRow.insertCell(2).textContent = student.mothersName;
-            newRow.insertCell(3).textContent = student.rollNo;
-            newRow.insertCell(4).textContent = student.branch;
-            newRow.insertCell(5).textContent = student.class10;
-            newRow.insertCell(6).textContent = student.class12;
-            newRow.insertCell(7).textContent = student.age;
-            newRow.insertCell(8).textContent = student.gender;
-            newRow.insertCell(9).textContent = student.mobile;
-            newRow.insertCell(10).textContent = student.cgpa;
-            newRow.insertCell(11).textContent = student.grade;
+            newRow.insertCell(2).textContent = student.fathersPhone;
+            newRow.insertCell(3).textContent = student.mothersName;
+            newRow.insertCell(4).textContent = student.rollNo;
+            newRow.insertCell(5).textContent = student.branch;
+            newRow.insertCell(6).textContent = student.class10;
+            newRow.insertCell(7).textContent = student.class12;
+            newRow.insertCell(8).textContent = student.age;
+            newRow.insertCell(9).textContent = student.gender;
+            newRow.insertCell(10).textContent = student.mobile;
+            newRow.insertCell(11).textContent = student.cgpa;
+            newRow.insertCell(12).textContent = student.grade;
+            newRow.insertCell(13).textContent = student.collegeFees;
 
-            // Passport Photo
-            const imgCell = newRow.insertCell(12);
+            const imgCell = newRow.insertCell(14);
             const imgElement = document.createElement('img');
             imgElement.src = student.photo;
             imgElement.alt = 'Passport Photo';
@@ -238,17 +239,14 @@
             imgElement.style.borderRadius = '5px';
             imgCell.appendChild(imgElement);
 
-            // Document Link
-            const docCell = newRow.insertCell(13);
+            const docCell = newRow.insertCell(15);
             const docLink = document.createElement('a');
-            docLink.href = student.document; // Assuming the document is stored as a URL
+            docLink.href = student.document;
             docLink.textContent = 'View Document';
-            docLink.target = '_blank'; // Open in a new tab
+            docLink.target = '_blank';
             docCell.appendChild(docLink);
 
-            // Actions
-            const actionsCell = newRow.insertCell(14);
-            actionsCell.className = 'edit-buttons';
+            const actionsCell = newRow.insertCell(16);
             actionsCell.innerHTML = ` 
                 <button onclick="editStudent('${student.rollNo}')">Edit</button>
                 <button onclick="deleteStudent('${student.rollNo}')">Delete</button>
@@ -259,23 +257,19 @@
     function editStudent(rollNo) {
         const students = JSON.parse(localStorage.getItem('students')) || [];
         const student = students.find(s => s.rollNo === rollNo);
-        if (student) {
-            // Redirect to student_entry.html with student data in sessionStorage for editing
-            sessionStorage.setItem('editStudent', JSON.stringify(student));
-            window.location.href = 'student_entry.html';
-        }
+        sessionStorage.setItem('editStudent', JSON.stringify(student));
+        window.location.href = 'student_entry.html';
     }
 
     function deleteStudent(rollNo) {
-        if (confirm('Are you sure you want to delete this student?')) {
-            const students = JSON.parse(localStorage.getItem('students')) || [];
-            const updatedStudents = students.filter(s => s.rollNo !== rollNo);
-            localStorage.setItem('students', JSON.stringify(updatedStudents));
-            populateTable();
-        }
+        let students = JSON.parse(localStorage.getItem('students')) || [];
+        students = students.filter(s => s.rollNo !== rollNo);
+        localStorage.setItem('students', JSON.stringify(students));
+        populateTable();
     }
 
-    window.onload = populateTable;
+    // Load student data on page load
+    document.addEventListener('DOMContentLoaded', populateTable);
 </script>
 
 </body>
