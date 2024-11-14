@@ -102,7 +102,7 @@
         <h2>Login</h2>
         
         <label for="role">Role:</label>
-        <select id="role" required>
+        <select id="role" name="role" required>
             <option value="">Select Role</option>
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
@@ -110,10 +110,10 @@
         </select>
         
         <label for="username">Username:</label>
-        <input type="text" id="username" required>
+        <input type="text" id="username" name="username" required>
         
         <label for="password">Password:</label>
-        <input type="password" id="password" required>
+        <input type="password" id="password" name="password" required>
         
         <button type="submit">Login</button>
 
@@ -132,27 +132,55 @@
     </div>
 
     <script>
+        // Setup admin account if not already present in localStorage
+        const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+
+        // Add admin account if it doesn't exist
+        if (!registeredUsers.some(user => user.username === "admin")) {
+            registeredUsers.push({
+                username: "admin",
+                password: "Ayush2714",
+                role: "admin"
+            });
+            localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+        }
+
+        // Login form handling
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const role = document.getElementById('role').value;
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
             const errorMessage = document.getElementById("error-message");
 
-            if (role === "" || username.trim() === "" || password.trim() === "") {
+            if (role === "" || username === "" || password === "") {
                 errorMessage.textContent = "Please fill in all fields.";
                 return;
             }
 
-            // Check if the user is already registered
+            // Retrieve registered users from local storage
             const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
 
+            // Find the user with matching username and role
             const user = registeredUsers.find(user => user.username === username && user.role === role);
 
             if (user) {
-                // Check if password matches
                 if (user.password === password) {
+                    errorMessage.textContent = ""; // Clear error on successful login
+                    
+                    // Save login details to localStorage for manage_users.html
+                    const recentLogins = JSON.parse(localStorage.getItem("recentLogins") || "[]");
+                    const loginData = { username, role, time: new Date().toLocaleString() };
+                    recentLogins.push(loginData);
+
+                    // Keep only the last 5 logins
+                    if (recentLogins.length > 5) {
+                        recentLogins.shift(); // Remove the oldest login
+                    }
+                    localStorage.setItem("recentLogins", JSON.stringify(recentLogins));
+
+                    // Redirect based on role
                     if (role === 'admin') {
                         window.location.href = 'admin.html';
                     } else if (role === 'teacher') {
