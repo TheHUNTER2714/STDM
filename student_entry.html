@@ -155,7 +155,6 @@
 <body>
 
 <div class="overlay"></div>
-</div>
 
 <h1>Student Entry Form</h1>
 
@@ -231,95 +230,54 @@
     <label for="documents">Upload Documents (optional):</label>
     <input type="file" id="documents" accept=".pdf,.doc,.docx,.jpg,.png" multiple>
 
-    <button type="submit" class="spaced-button">Add Student</button>
-    <button type="button" onclick="redirectToDisplay()">Next</button>
+    <button type="submit" onclick="handleSubmit(event)">Submit</button>
 </form>
 
-<a href="login.html">Back to Login</a>
+<a href="display.html">Next</a>
 
 <script>
-    // Sample data for profile (you can replace it with actual user data if available)
-    const username = 'student_user'; // Replace with actual username
-    const role = 'Student'; // Replace with actual role
-
-    // Set profile information
-    document.getElementById('username').textContent = username;
-    document.getElementById('role').textContent = role;
-
     function toggleProfile() {
-        const profile = document.getElementById('profile');
-        if (profile.style.display === 'block') {
-            profile.style.display = 'none'; // Hide profile
-        } else {
-            profile.style.display = 'block'; // Show profile
-        }
+        var profile = document.getElementById("profile");
+        profile.style.display = (profile.style.display === "block") ? "none" : "block";
     }
 
-    document.getElementById('studentForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const student = {
-            name: document.getElementById('name').value,
-            fathersName: document.getElementById('fathersName').value,
-            mothersName: document.getElementById('mothersName').value,
-            rollNo: document.getElementById('rollNo').value,
-            branch: document.getElementById('branch').value,
-            class10: document.getElementById('class10').value,
-            class12: document.getElementById('class12').value,
-            age: document.getElementById('age').value,
-            mobile: document.getElementById('mobile').value,
-            cgpa: document.getElementById('cgpa').value,
-            grade: document.getElementById('grade').value,
-            gender: document.querySelector('input[name="gender"]:checked').value
-        };
-
-        const photoInput = document.getElementById('passport');
-        const reader = new FileReader();
-        reader.readAsDataURL(photoInput.files[0]);
-
-        reader.onload = function() {
-            student.photo = reader.result;
-
-            const documentInput = document.getElementById('documents');
-            const documentFiles = documentInput.files;
-            student.documents = [];
-
-            for (let i = 0; i < documentFiles.length; i++) {
-                const docReader = new FileReader();
-                docReader.readAsDataURL(documentFiles[i]);
-
-                docReader.onload = function() {
-                    student.documents.push(docReader.result);
-                    
-                    // Save the student details after the last document is read
-                    if (student.documents.length === documentFiles.length) {
-                        let students = JSON.parse(localStorage.getItem('students')) || [];
-                        students.push(student);
-                        localStorage.setItem('students', JSON.stringify(students));
-
-                        alert('Student added successfully!');
-                        document.getElementById('studentForm').reset();
-                    }
-                };
-            }
-            
-            // If no documents are uploaded, proceed with saving the student data
-            if (documentFiles.length === 0) {
-                let students = JSON.parse(localStorage.getItem('students')) || [];
-                students.push(student);
-                localStorage.setItem('students', JSON.stringify(students));
-
-                alert('Student added successfully!');
-                document.getElementById('studentForm').reset();
-            }
-        };
-    });
     function toggleFeesInput() {
-        const feesAmountContainer = document.getElementById('feesAmountContainer');
-        feesAmountContainer.style.display = document.getElementById('feesPaid').checked ? 'block' : 'none';
+        var feesAmountContainer = document.getElementById("feesAmountContainer");
+        feesAmountContainer.style.display = document.getElementById("feesPaid").checked ? "block" : "none";
     }
-    function redirectToDisplay() {
-        window.location.href = 'logout.html';
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        
+        const form = document.getElementById("studentForm");
+        const formData = new FormData(form);
+
+        // Handle file uploads
+        const passportPhoto = document.getElementById("passport").files[0];
+        const documents = document.getElementById("documents").files;
+
+        // Save data to localStorage
+        localStorage.setItem("studentData", JSON.stringify({
+            name: formData.get("name"),
+            fathersName: formData.get("fathersName"),
+            mothersName: formData.get("mothersName"),
+            rollNo: formData.get("rollNo"),
+            fatherMobile: formData.get("fatherMobile"),
+            branch: formData.get("branch"),
+            email: formData.get("email"),
+            gender: formData.get("gender"),
+            class10: formData.get("class10"),
+            class12: formData.get("class12"),
+            age: formData.get("age"),
+            mobile: formData.get("mobile"),
+            cgpa: formData.get("cgpa"),
+            grade: formData.get("grade"),
+            feesPaid: formData.get("feesPaid"),
+            passport: passportPhoto ? passportPhoto.name : null,
+            documents: Array.from(documents).map(doc => doc.name)
+        }));
+
+        alert("Form Submitted Successfully!");
     }
 </script>
 
