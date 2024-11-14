@@ -110,6 +110,10 @@
             margin-bottom: 10px;
         }
 
+        .spaced-button {
+            margin-bottom: 10px;
+        }
+        
         button {
             padding: 10px 15px;
             background-color: #4a90e2;
@@ -151,8 +155,6 @@
 <body>
 
 <div class="overlay"></div>
-<div class="gif-container">
-    <img src="https://media.tenor.com/aB2Vyq7YU0kAAAAj/mttc-education.gif" alt="Welcome" width="80">
 </div>
 
 <h1>Add new student</h1>
@@ -182,8 +184,21 @@
     <label for="rollNo">Roll No:</label>
     <input type="text" id="rollNo" required>
 
+    <label for="fatherMobile">Father's Mobile No:</label>
+    <input type="text" id="fatherMobile" required pattern="\d{10}" title="Please enter a valid 10-digit mobile number">
+
     <label for="branch">Branch:</label>
     <input type="text" id="branch" required>
+
+    <label for="email">Email ID:</label>
+    <input type="email" id="email" required>
+
+    <label>Gender:</label>
+    <div class="gender-container">
+        <label><input type="radio" name="gender" value="male" required> Male</label>
+        <label><input type="radio" name="gender" value="female"> Female</label>
+        <label><input type="radio" name="gender" value="other"> Other</label>
+    </div>
 
     <label for="class10">Class 10 Marks (%):</label>
     <input type="number" id="class10" min="0" max="100" required>
@@ -203,20 +218,20 @@
     <label for="grade">Grade:</label>
     <input type="text" id="grade" required>
 
+    <label>College Fees Paid:</label>
+    <input type="checkbox" id="feesPaid" onclick="toggleFeesInput()">
+    <div id="feesAmountContainer" style="display: none;">
+        <label for="feesAmount">Amount Paid:</label>
+        <input type="number" id="feesAmount" min="0" placeholder="Enter amount if paid">
+    </div>
+
     <label for="passport">Passport Size Photo:</label>
     <input type="file" id="passport" accept="image/*" required>
 
     <label for="documents">Upload Documents (optional):</label>
     <input type="file" id="documents" accept=".pdf,.doc,.docx,.jpg,.png" multiple>
 
-    <label>Gender:</label>
-    <div class="gender-container">
-        <label><input type="radio" name="gender" value="male" required> Male</label>
-        <label><input type="radio" name="gender" value="female"> Female</label>
-        <label><input type="radio" name="gender" value="other"> Other</label>
-    </div>
-
-    <button type="submit">Add Student</button>
+    <button type="submit" class="spaced-button">Add Student</button>
     <button type="button" onclick="redirectToDisplay()">Next</button>
 </form>
 
@@ -299,7 +314,10 @@
             }
         };
     });
-
+    function toggleFeesInput() {
+        const feesAmountContainer = document.getElementById('feesAmountContainer');
+        feesAmountContainer.style.display = document.getElementById('feesPaid').checked ? 'block' : 'none';
+    }
     function redirectToDisplay() {
         window.location.href = 'display.html';
     }
