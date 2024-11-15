@@ -1,67 +1,47 @@
-<!DOCTYPE html>
+><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Database Management System</title>
+    <title>Student Entry</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Styles for form layout and responsive design */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
+        }
+        body {
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: url('https://www.bing.com/th/id/OGC.32b6c73bf485851ea0269dbd6cc76138?pid=1.7&rurl=https%3a%2f%2fwww.chawtechsolutions.com%2fwp-content%2fuploads%2f2019%2f03%2fdeveloper-dribbble.gif&ehk=zykRqpo2Q6wyoCBjcdAIaTs4lcXofpo61rCR2U88DjU%3d') no-repeat center center fixed;
+            background: url('https://media.tenor.com/iZgF8NBZ1acAAAAM/rsc2020-elpradiant2020.gif') no-repeat center center fixed;
             background-size: cover;
-            animation: gradient 5s ease infinite;
             position: relative;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .nav-links {
-            width: 100%;
+        .overlay {
             display: flex;
-            justify-content: space-around;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 10px 0;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
         }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            padding: 10px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #4a90e2;
-        }
-
-        h1 {
-            color: white;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-
-        table {
-            width: 90%;
-            max-width: 800px;
-            border-collapse: collapse;
+        form {
             background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            overflow-y: auto;
+            max-height: 80vh;
             animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 2;
         }
 
         @keyframes fadeIn {
@@ -69,211 +49,163 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #4a90e2;
-            color: white;
-        }
-
-        tr:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .button-container {
-            margin: 20px;
-        }
-
-        button {
-            padding: 10px 15px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background-color: #357ab8;
-            transform: scale(1.05);
-        }
-
-        a {
-            color: white;
-            text-decoration: underline;
+        
+        label {
             display: block;
+            margin: 10px 0 5px;
+        }
+
+        h2 {
             text-align: center;
-            margin-top: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            color: #f3efef;
         }
-
-        .edit-buttons {
-            display: flex;
-            gap: 5px;
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 0.9em;
+            color: #555;
         }
-
-        .profile-icon {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.9em;
         }
-
-        .profile {
-            display: none;
-            background: rgba(255, 255, 255, 0.9);
+        button {
+            width: 48%;
             padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            position: absolute;
-            top: 60px;
-            left: 20px;
-            z-index: 3;
+            margin: 10px 1%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: rgb(21, 21, 21);
+        }
+        button[type="button"] {
+            background-color: #0c0c0c;
+            color: rgb(119, 215, 23);
         }
     </style>
 </head>
 <body>
+    <div class="overlay">
+        <div class="form-container">
+            <h2>Add New Student</h2>
+            <form onsubmit="saveStudentData(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
 
-<h1>Student Records</h1>
+                <label for="father-name">Father's Name:</label>
+                <input type="text" id="father-name" name="father_name" required>
 
-<!-- Profile Icon -->
-<div class="profile-icon" onclick="toggleProfile()">
-    <img src="https://img.icons8.com/material-outlined/24/000000/user.png" alt="Profile Icon" />
-</div>
+                <label for="mother-name">Mother's Name:</label>
+                <input type="text" id="mother-name" name="mother_name" required>
 
-<!-- Profile Section -->
-<div class="profile" id="profile">
-    <h2>Profile</h2>
-    <p><strong>Username:</strong> <span id="username">student_user</span></p>
-    <p><strong>Role:</strong> <span id="role">Student</span></p>
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="logout.html">Logout</a>
+                <label for="father-phone">Father's Phone No:</label>
+                <input type="tel" id="father-phone" name="father_phone" required>
+
+                <label for="phone">Phone No:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="tenth-percent">10th Percentage:</label>
+                <input type="number" id="tenth-percent" name="tenth_percent" step="0.01" required>
+
+                <label for="twelfth-percent">12th Percentage:</label>
+                <input type="number" id="twelfth-percent" name="twelfth_percent" step="0.01" required>
+
+                <label for="cgpa">CGPA:</label>
+                <input type="number" id="cgpa" name="cgpa" step="0.01" required>
+
+                <label for="grade">Grade:</label>
+                <input type="text" id="grade" name="grade" required>
+
+                <label for="enrollment-no">Enrollment No:</label>
+                <input type="text" id="enrollment-no" name="enrollment_no" required>
+
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" required>
+
+                <label for="photo">Passport Size Photo:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+
+                <label for="document">Upload Document (Optional):</label>
+                <input type="file" id="document" name="document" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+
+                <label for="fees">Fees Status:</label>
+                <select id="fees" name="fees" required>
+                    <option value="paid">Paid</option>
+                    <option value="not_paid">Not Paid</option>
+                </select>
+
+                <label for="fees-amount">If Paid, Amount:</label>
+                <input type="number" id="fees-amount" name="fees_amount" step="0.01">
+
+                <button type="submit">Submit</button>
+                <button type="button" onclick="display()">display</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<table id="studentTable">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Father's Name</th>
-            <th>Father's Phone No</th>
-            <th>Mother's Name</th>
-            <th>Roll No</th>
-            <th>Branch</th>
-            <th>Class 10 Marks (%)</th>
-            <th>Class 12 Marks (%)</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Mobile No</th>
-            <th>CGPA</th>
-            <th>Grade</th>
-            <th>College Fees</th>
-            <th>Passport Photo</th>
-            <th>Documents</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Student data will be dynamically populated here -->
-    </tbody>
-</table>
+    <script>
+        function saveStudentData(event) {
+            event.preventDefault();
+            const studentData = {
+                name: document.getElementById("name").value,
+                father_name: document.getElementById("father-name").value,
+                mother_name: document.getElementById("mother-name").value,
+                father_phone: document.getElementById("father-phone").value,
+                phone: document.getElementById("phone").value,
+                email: document.getElementById("email").value,
+                gender: document.getElementById("gender").value,
+                tenth_percent: document.getElementById("tenth-percent").value,
+                twelfth_percent: document.getElementById("twelfth-percent").value,
+                cgpa: document.getElementById("cgpa").value,
+                grade: document.getElementById("grade").value,
+                enrollment_no: document.getElementById("enrollment-no").value,
+                course: document.getElementById("course").value,
+                photo: document.getElementById("photo").files[0] ? URL.createObjectURL(document.getElementById("photo").files[0]) : "",
+                document: document.getElementById("document").files[0] ? URL.createObjectURL(document.getElementById("document").files[0]) : "",
+                fees: document.getElementById("fees").value,
+                fees_amount: document.getElementById("fees-amount").value
+            };
 
-<div class="button-container">
-    <button onclick="window.location.href='home.html'">Add New Student</button>
-</div>
+            let students = JSON.parse(localStorage.getItem("students") || "[]");
+            students.push(studentData);
+            localStorage.setItem("students", JSON.stringify(students));
 
-<script>
-    const username = 'student_user'; // Replace with actual username
-    const role = 'Student'; // Replace with actual role
+            alert("Student data saved!");
+            window.location.href = "display.html";
+        }
 
-    // Update profile information
-    document.getElementById('username').textContent = username;
-    document.getElementById('role').textContent = role;
-
-    function toggleProfile() {
-        const profile = document.getElementById('profile');
-        profile.style.display = profile.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function populateTable() {
-        const students = JSON.parse(localStorage.getItem('students')) || [];
-        const tableBody = document.getElementById('studentTable').querySelector('tbody');
-        tableBody.innerHTML = '';
-
-        students.forEach((student) => {
-            const newRow = tableBody.insertRow();
-
-            newRow.insertCell(0).textContent = student.name;
-            newRow.insertCell(1).textContent = student.fathersName;
-            newRow.insertCell(2).textContent = student.fathersPhone;
-            newRow.insertCell(3).textContent = student.mothersName;
-            newRow.insertCell(4).textContent = student.rollNo;
-            newRow.insertCell(5).textContent = student.branch;
-            newRow.insertCell(6).textContent = student.class10;
-            newRow.insertCell(7).textContent = student.class12;
-            newRow.insertCell(8).textContent = student.age;
-            newRow.insertCell(9).textContent = student.gender;
-            newRow.insertCell(10).textContent = student.mobile;
-            newRow.insertCell(11).textContent = student.cgpa;
-            newRow.insertCell(12).textContent = student.grade;
-            newRow.insertCell(13).textContent = student.collegeFees;
-
-            const imgCell = newRow.insertCell(14);
-            const imgElement = document.createElement('img');
-            imgElement.src = student.photo;
-            imgElement.alt = 'Passport Photo';
-            imgElement.style.width = '50px';
-            imgElement.style.borderRadius = '5px';
-            imgCell.appendChild(imgElement);
-
-            const docCell = newRow.insertCell(15);
-            const docLink = document.createElement('a');
-            docLink.href = student.document;
-            docLink.textContent = 'View Document';
-            docLink.target = '_blank';
-            docCell.appendChild(docLink);
-
-            const actionsCell = newRow.insertCell(16);
-            actionsCell.innerHTML = ` 
-                <button onclick="editStudent('${student.rollNo}')">Edit</button>
-                <button onclick="deleteStudent('${student.rollNo}')">Delete</button>
-            `;
-        });
-    }
-
-    function editStudent(rollNo) {
-        const students = JSON.parse(localStorage.getItem('students')) || [];
-        const student = students.find(s => s.rollNo === rollNo);
-        sessionStorage.setItem('editStudent', JSON.stringify(student));
-        window.location.href = 'student_entry.html';
-    }
-
-    function deleteStudent(rollNo) {
-        let students = JSON.parse(localStorage.getItem('students')) || [];
-        students = students.filter(s => s.rollNo !== rollNo);
-        localStorage.setItem('students', JSON.stringify(students));
-        populateTable();
-    }
-
-    // Load student data on page load
-    document.addEventListener('DOMContentLoaded', populateTable);
-</script>
-
+        function display() {
+            window.location.href = 'display.html';
+        }
+    </script>
 </body>
 </html>
+
 
 
 
