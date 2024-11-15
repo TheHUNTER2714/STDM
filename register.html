@@ -177,9 +177,14 @@
 
         // Add the new user to the list of registered users
         existingUsers.push(newUser);
-
+        
         // Save updated users list back to local storage
         localStorage.setItem('registeredUsers', JSON.stringify(existingUsers));
+
+        // Save recent login entry
+        const recentLogins = JSON.parse(localStorage.getItem('recentLogins')) || [];
+        recentLogins.push({ username, role, time: new Date().toLocaleString() });
+        localStorage.setItem('recentLogins', JSON.stringify(recentLogins));
 
         // Redirect based on role
         if (role === 'admin') {
