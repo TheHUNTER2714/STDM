@@ -1,206 +1,218 @@
-><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Entry</title>
+    <title>Student Details</title>
     <style>
-        /* Styles for form layout and responsive design */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
         body {
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url('https://media.tenor.com/iZgF8NBZ1acAAAAM/rsc2020-elpradiant2020.gif') no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-        }
-
-        .overlay {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
             min-height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
+            margin: 0;
+            background: url('https://www.bing.com/th/id/OGC.32b6c73bf485851ea0269dbd6cc76138?pid=1.7&rurl=https%3a%2f%2fwww.chawtechsolutions.com%2fwp-content%2fuploads%2f2019%2f03%2fdeveloper-dribbble.gif&ehk=zykRqpo2Q6wyoCBjcdAIaTs4lcXofpo61rCR2U88DjU%3d') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        form {
-            background: rgba(255, 255, 255, 0.9);
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.85);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px;
-            overflow-y: auto;
-            max-height: 80vh;
-            animation: fadeIn 1s ease-out;
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        
-        label {
-            display: block;
-            margin: 10px 0 5px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-            color: #f3efef;
+            margin-bottom: 20px;
+            color: #333;
         }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-size: 0.9em;
-            color: #555;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="number"],
-        select,
-        input[type="file"] {
+
+        table {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.9em;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
-        button {
-            width: 48%;
+
+        th, td {
             padding: 10px;
-            margin: 10px 1%;
+            border: 1px solid #ccc;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .btn {
+            padding: 5px 10px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.9em;
         }
-        button[type="submit"] {
-            background-color: #4CAF50;
-            color: rgb(21, 21, 21);
+
+        .edit-btn {
+            background-color: #FFC107;
+            color: white;
         }
-        button[type="button"] {
-            background-color: #0c0c0c;
-            color: rgb(119, 215, 23);
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .profile-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .profile {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            z-index: 3;
+        }
+
+        .photo-cell img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 2px solid #ddd;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
-    <div class="overlay">
-        <div class="form-container">
-            <h2>Add New Student</h2>
-            <form onsubmit="saveStudentData(event)">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+    <div class="container">
+        <h2>Student Records</h2>
 
-                <label for="father-name">Father's Name:</label>
-                <input type="text" id="father-name" name="father_name" required>
-
-                <label for="mother-name">Mother's Name:</label>
-                <input type="text" id="mother-name" name="mother_name" required>
-
-                <label for="father-phone">Father's Phone No:</label>
-                <input type="tel" id="father-phone" name="father_phone" required>
-
-                <label for="phone">Phone No:</label>
-                <input type="tel" id="phone" name="phone" required>
-
-                <label for="email">Email ID:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender" required>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-
-                <label for="tenth-percent">10th Percentage:</label>
-                <input type="number" id="tenth-percent" name="tenth_percent" step="0.01" required>
-
-                <label for="twelfth-percent">12th Percentage:</label>
-                <input type="number" id="twelfth-percent" name="twelfth_percent" step="0.01" required>
-
-                <label for="cgpa">CGPA:</label>
-                <input type="number" id="cgpa" name="cgpa" step="0.01" required>
-
-                <label for="grade">Grade:</label>
-                <input type="text" id="grade" name="grade" required>
-
-                <label for="enrollment-no">Enrollment No:</label>
-                <input type="text" id="enrollment-no" name="enrollment_no" required>
-
-                <label for="course">Course:</label>
-                <input type="text" id="course" name="course" required>
-
-                <label for="photo">Passport Size Photo:</label>
-                <input type="file" id="photo" name="photo" accept="image/*" required>
-
-                <label for="document">Upload Document (Optional):</label>
-                <input type="file" id="document" name="document" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-
-                <label for="fees">Fees Status:</label>
-                <select id="fees" name="fees" required>
-                    <option value="paid">Paid</option>
-                    <option value="not_paid">Not Paid</option>
-                </select>
-
-                <label for="fees-amount">If Paid, Amount:</label>
-                <input type="number" id="fees-amount" name="fees_amount" step="0.01">
-
-                <button type="submit">Submit</button>
-                <button type="button" onclick="display()">display</button>
-            </form>
+        <!-- Profile Icon -->
+        <div class="profile-icon" onclick="toggleProfile()">
+            <img src="https://img.icons8.com/material-outlined/24/000000/user.png" alt="Profile Icon" />
         </div>
+
+        <!-- Profile Section -->
+        <div class="profile" id="profile">
+            <h2>Profile</h2>
+            <p><strong>Username:</strong> <span id="username">student_user</span></p>
+            <p><strong>Role:</strong> <span id="role">Student</span></p>
+            <div class="nav-links">
+                <a href="index.html">Home</a><br><br>
+                <a href="logout.html">Logout</a>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Father Phone No</th>
+                    <th>Phone No</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>10th %</th>
+                    <th>12th %</th>
+                    <th>CGPA</th>
+                    <th>Grade</th>
+                    <th>Enrollment No</th>
+                    <th>Course</th>
+                    <th>Photo</th>
+                    <th>Document</th>
+                    <th>Fees Status</th>
+                    <th>Fees Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+        </table>
     </div>
 
     <script>
-        function saveStudentData(event) {
-            event.preventDefault();
-            const studentData = {
-                name: document.getElementById("name").value,
-                father_name: document.getElementById("father-name").value,
-                mother_name: document.getElementById("mother-name").value,
-                father_phone: document.getElementById("father-phone").value,
-                phone: document.getElementById("phone").value,
-                email: document.getElementById("email").value,
-                gender: document.getElementById("gender").value,
-                tenth_percent: document.getElementById("tenth-percent").value,
-                twelfth_percent: document.getElementById("twelfth-percent").value,
-                cgpa: document.getElementById("cgpa").value,
-                grade: document.getElementById("grade").value,
-                enrollment_no: document.getElementById("enrollment-no").value,
-                course: document.getElementById("course").value,
-                photo: document.getElementById("photo").files[0] ? URL.createObjectURL(document.getElementById("photo").files[0]) : "",
-                document: document.getElementById("document").files[0] ? URL.createObjectURL(document.getElementById("document").files[0]) : "",
-                fees: document.getElementById("fees").value,
-                fees_amount: document.getElementById("fees-amount").value
-            };
+        const username = 'student_user';
+        const role = 'Student';
 
-            let students = JSON.parse(localStorage.getItem("students") || "[]");
-            students.push(studentData);
-            localStorage.setItem("students", JSON.stringify(students));
+        document.getElementById('username').textContent = username;
+        document.getElementById('role').textContent = role;
 
-            alert("Student data saved!");
-            window.location.href = "display.html";
+        function toggleProfile() {
+            const profile = document.getElementById('profile');
+            profile.style.display = profile.style.display === 'block' ? 'none' : 'block';
         }
 
-        function display() {
-            window.location.href = 'display.html';
+        document.addEventListener("DOMContentLoaded", loadStudentData);
+
+        function loadStudentData() {
+            const students = JSON.parse(localStorage.getItem("students") || "[]");
+            const tableBody = document.getElementById("studentTableBody");
+            tableBody.innerHTML = '';
+
+            students.forEach((student, index) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.father_name}</td>
+                    <td>${student.mother_name}</td>
+                    <td>${student.father_phone}</td>
+                    <td>${student.phone}</td>
+                    <td>${student.email}</td>
+                    <td>${student.gender}</td>
+                    <td>${student.tenth_percent}</td>
+                    <td>${student.twelfth_percent}</td>
+                    <td>${student.cgpa}</td>
+                    <td>${student.grade}</td>
+                    <td>${student.enrollment_no}</td>
+                    <td>${student.course}</td>
+                    <td class="photo-cell"><img src="${student.photo}" alt="Photo"></td>
+                    <td><a href="${student.document}" target="_blank">Document</a></td>
+                    <td>${student.fees}</td>
+                    <td>${student.fees_amount}</td>
+                    <td>
+                        <button class="btn edit-btn" onclick="editEntry(${index})">Edit</button>
+                        <button class="btn delete-btn" onclick="deleteEntry(${index})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function deleteEntry(index) {
+            if (confirm("Are you sure you want to delete this entry?")) {
+                let students = JSON.parse(localStorage.getItem("students") || "[]");
+                students.splice(index, 1);
+                localStorage.setItem("students", JSON.stringify(students));
+                loadStudentData();
+            }
+        }
+
+        function editEntry(index) {
+            alert("Edit functionality under development.");
         }
     </script>
 </body>
