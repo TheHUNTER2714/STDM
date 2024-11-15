@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Database Management System</title>
+    <title>Student Entry</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Styles for form layout and responsive design */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
+        }
+        body {
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: url('https://www.bing.com/th/id/OGC.c5f2695092614f946b320a8f556e828b?pid=1.7&rurl=https%3a%2f%2fcdn.dribbble.com%2fusers%2f1160991%2fscreenshots%2f6827662%2fcharacter_student.gif&ehk=u9nWMCr%2bZvke%2bVg%2bBeAzkOaR%2bHGrpHMZdFj0ie34YVk%3d') no-repeat center center fixed;
@@ -20,50 +22,12 @@
         }
 
         .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-
-        h1 {
-            color: white;
-            margin-bottom: 10px;
-            text-align: center;
-            font-weight: bold;
-            z-index: 2;
-        }
-
-        .gif-container {
-            margin-bottom: 10px;
-            text-align: center;
-            z-index: 2;
-        }
-
-        .profile-icon {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            cursor: pointer;
-            width: 30px; /* Adjust icon size */
-            height: 30px; /* Adjust icon size */
-            z-index: 2;
-        }
-
-        .profile {
-            display: none; /* Hidden by default */
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            position: absolute;
-            top: 60px; /* Position below the icon */
-            left: 20px;
-            z-index: 3;
         }
 
         form {
@@ -85,202 +49,160 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        
         label {
             display: block;
             margin: 10px 0 5px;
         }
 
-        input {
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            color: #24bd82;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        input[type="file"] {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s;
+            border-radius: 4px;
+            font-size: 0.9em;
         }
-
-        input:focus {
-            border-color: #4a90e2;
-            outline: none;
-        }
-
-        .gender-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .spaced-button {
-            margin-bottom: 10px;
-        }
-        
         button {
-            padding: 10px 15px;
-            background-color: #4a90e2;
-            color: white;
+            width: 48%;
+            padding: 10px;
+            margin: 10px 1%;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            width: 100%;
+            font-size: 0.9em;
         }
-
-        button:hover {
-            background-color: #357ab8;
-            transform: scale(1.05);
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: rgb(21, 21, 21);
         }
-
-        a {
-            color: white;
-            text-decoration: underline;
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            z-index: 2;
-        }
-
-        @media (max-width: 600px) {
-            form {
-                max-height: 90vh;
-                padding: 15px;
-            }
-
-            button {
-                padding: 8px 12px;
-            }
+        button[type="button"] {
+            background-color: #f44336;
+            color: rgb(17, 16, 16);
         }
     </style>
 </head>
 <body>
+    <div class="overlay">
+        <div class="form-container">
+            <h2>Student Entry Form</h2>
+            <form onsubmit="saveStudentData(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
 
-<div class="overlay"></div>
+                <label for="father-name">Father's Name:</label>
+                <input type="text" id="father-name" name="father_name" required>
 
-<h1>Student Entry Form</h1>
+                <label for="mother-name">Mother's Name:</label>
+                <input type="text" id="mother-name" name="mother_name" required>
 
-<!-- Profile Icon -->
-<div class="profile-icon" onclick="toggleProfile()">
-    <img src="https://img.icons8.com/material-outlined/24/ffffff/user.png" alt="Profile Icon" />
-</div>
+                <label for="father-phone">Father's Phone No:</label>
+                <input type="tel" id="father-phone" name="father_phone" required>
 
-<!-- Profile Section -->
-<div class="profile" id="profile">
-    <h2>Profile</h2>
-    <p><strong>Username:</strong> <span id="username">student_user</span></p>
-    <p><strong>Role:</strong> <span id="role">Student</span></p>
-</div>
+                <label for="phone">Phone No:</label>
+                <input type="tel" id="phone" name="phone" required>
 
-<form id="studentForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" required>
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" required>
 
-    <label for="fathersName">Father's Name:</label>
-    <input type="text" id="fathersName" required>
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
 
-    <label for="mothersName">Mother's Name:</label>
-    <input type="text" id="mothersName" required>
+                <label for="tenth-percent">10th Percentage:</label>
+                <input type="number" id="tenth-percent" name="tenth_percent" step="0.01" required>
 
-    <label for="rollNo">Roll No:</label>
-    <input type="text" id="rollNo" required>
+                <label for="twelfth-percent">12th Percentage:</label>
+                <input type="number" id="twelfth-percent" name="twelfth_percent" step="0.01" required>
 
-    <label for="fatherMobile">Father's Mobile No:</label>
-    <input type="text" id="fatherMobile" required pattern="\d{10}" title="Please enter a valid 10-digit mobile number">
+                <label for="cgpa">CGPA:</label>
+                <input type="number" id="cgpa" name="cgpa" step="0.01" required>
 
-    <label for="branch">Branch:</label>
-    <input type="text" id="branch" required>
+                <label for="grade">Grade:</label>
+                <input type="text" id="grade" name="grade" required>
 
-    <label for="email">Email ID:</label>
-    <input type="email" id="email" required>
+                <label for="enrollment-no">Enrollment No:</label>
+                <input type="text" id="enrollment-no" name="enrollment_no" required>
 
-    <label>Gender:</label>
-    <div class="gender-container">
-        <label><input type="radio" name="gender" value="male" required> Male</label>
-        <label><input type="radio" name="gender" value="female"> Female</label>
-        <label><input type="radio" name="gender" value="other"> Other</label>
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" required>
+
+                <label for="photo">Passport Size Photo:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+
+                <label for="document">Upload Document (Optional):</label>
+                <input type="file" id="document" name="document" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+
+                <label for="fees">Fees Status:</label>
+                <select id="fees" name="fees" required>
+                    <option value="paid">Paid</option>
+                    <option value="not_paid">Not Paid</option>
+                </select>
+
+                <label for="fees-amount">If Paid, Amount:</label>
+                <input type="number" id="fees-amount" name="fees_amount" step="0.01">
+
+                <button type="submit">Submit</button>
+                <button type="button" onclick="logout()">Logout</button>
+            </form>
+        </div>
     </div>
 
-    <label for="class10">Class 10 Marks (%):</label>
-    <input type="number" id="class10" min="0" max="100" required>
+    <script>
+        function saveStudentData(event) {
+            event.preventDefault();
+            const studentData = {
+                name: document.getElementById("name").value,
+                father_name: document.getElementById("father-name").value,
+                mother_name: document.getElementById("mother-name").value,
+                father_phone: document.getElementById("father-phone").value,
+                phone: document.getElementById("phone").value,
+                email: document.getElementById("email").value,
+                gender: document.getElementById("gender").value,
+                tenth_percent: document.getElementById("tenth-percent").value,
+                twelfth_percent: document.getElementById("twelfth-percent").value,
+                cgpa: document.getElementById("cgpa").value,
+                grade: document.getElementById("grade").value,
+                enrollment_no: document.getElementById("enrollment-no").value,
+                course: document.getElementById("course").value,
+                photo: document.getElementById("photo").files[0] ? URL.createObjectURL(document.getElementById("photo").files[0]) : "",
+                document: document.getElementById("document").files[0] ? URL.createObjectURL(document.getElementById("document").files[0]) : "",
+                fees: document.getElementById("fees").value,
+                fees_amount: document.getElementById("fees-amount").value
+            };
 
-    <label for="class12">Class 12 Marks (%):</label>
-    <input type="number" id="class12" min="0" max="100" required>
+            let students = JSON.parse(localStorage.getItem("students") || "[]");
+            students.push(studentData);
+            localStorage.setItem("students", JSON.stringify(students));
 
-    <label for="age">Age:</label>
-    <input type="number" id="age" required min="1">
+            alert("Student data saved!");
+            window.location.href = "thank.html";
+        }
 
-    <label for="mobile">Mobile No:</label>
-    <input type="text" id="mobile" required pattern="\d{10}" title="Please enter a valid 10-digit mobile number">
-
-    <label for="cgpa">CGPA:</label>
-    <input type="text" id="cgpa" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid CGPA (e.g., 3.75)">
-
-    <label for="grade">Grade:</label>
-    <input type="text" id="grade" required>
-
-    <label>College Fees Paid:</label>
-    <input type="checkbox" id="feesPaid" onclick="toggleFeesInput()">
-    <div id="feesAmountContainer" style="display: none;">
-        <label for="feesAmount">Amount Paid:</label>
-        <input type="number" id="feesAmount" min="0" placeholder="Enter amount if paid">
-    </div>
-
-    <label for="passport">Passport Size Photo:</label>
-    <input type="file" id="passport" accept="image/*" required>
-
-    <label for="documents">Upload Documents (optional):</label>
-    <input type="file" id="documents" accept=".pdf,.doc,.docx,.jpg,.png" multiple>
-
-    <button type="submit" onclick="handleSubmit(event)">Submit</button>
-</form>
-
-<a href="display.html">Next</a>
-
-<script>
-    function toggleProfile() {
-        var profile = document.getElementById("profile");
-        profile.style.display = (profile.style.display === "block") ? "none" : "block";
-    }
-
-    function toggleFeesInput() {
-        var feesAmountContainer = document.getElementById("feesAmountContainer");
-        feesAmountContainer.style.display = document.getElementById("feesPaid").checked ? "block" : "none";
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        
-        const form = document.getElementById("studentForm");
-        const formData = new FormData(form);
-
-        // Handle file uploads
-        const passportPhoto = document.getElementById("passport").files[0];
-        const documents = document.getElementById("documents").files;
-
-        // Save data to localStorage
-        localStorage.setItem("studentData", JSON.stringify({
-            name: formData.get("name"),
-            fathersName: formData.get("fathersName"),
-            mothersName: formData.get("mothersName"),
-            rollNo: formData.get("rollNo"),
-            fatherMobile: formData.get("fatherMobile"),
-            branch: formData.get("branch"),
-            email: formData.get("email"),
-            gender: formData.get("gender"),
-            class10: formData.get("class10"),
-            class12: formData.get("class12"),
-            age: formData.get("age"),
-            mobile: formData.get("mobile"),
-            cgpa: formData.get("cgpa"),
-            grade: formData.get("grade"),
-            feesPaid: formData.get("feesPaid"),
-            passport: passportPhoto ? passportPhoto.name : null,
-            documents: Array.from(documents).map(doc => doc.name)
-        }));
-
-        alert("Form Submitted Successfully!");
-    }
-</script>
-
+        function logout() {
+            window.location.href = 'logout.html';
+        }
+    </script>
 </body>
 </html>
 
