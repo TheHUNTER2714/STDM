@@ -5,103 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Student Database Management System</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background: url('https://media.tenor.com/iZgF8NBZ1acAAAAM/rsc2020-elpradiant2020.gif') no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(159, 158, 163, 0.418);
-            z-index: 1;
-        }
-
-        form {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInUp 0.5s forwards;
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-
-        input:focus, select:focus {
-            border-color: #4a90e2;
-            outline: none;
-        }
-
-        button {
-            padding: 10px 15px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background-color: #357ab8;
-            transform: scale(1.05);
-        }
-
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-
-        .link {
-            margin-top: 10px;
-            text-align: center;
-            z-index: 2;
-        }
-
-        .link a {
-            color: #4a90e2;
-            text-decoration: none;
-        }
-
-        .link a:hover {
-            text-decoration: underline;
-        }
+        /* Add your existing CSS styles here */
     </style>
 </head>
 <body>
@@ -155,6 +59,12 @@
             return;
         }
 
+        // Admin password validation
+        if (role === 'admin' && password !== 'Ayush2714') {
+            errorMessage.textContent = 'Incorrect password for admin role!';
+            return;
+        }
+
         errorMessage.textContent = ''; // Clear any previous error message
 
         // Retrieve existing users from local storage
@@ -191,4 +101,5 @@
 
 </body>
 </html>
+
 
